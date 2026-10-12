@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montiq Telecaller Application</title>
+<meta name="description" content="Apply for the telecaller role at Montiq Studio, a video editing agency.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>[hidden]{display:none!important}html{-webkit-text-size-adjust:100%}img{max-width:100%}</style>
+<style>
+/* Layout: one narrow column, brand header, five grouped sections, result panel that appears after a valid submit. */
+:root{
+  --bg:#F7F6F2; --surface:#FFFFFF; --fg:#101418; --muted:#4A5159; --line:#D6D3C8;
+  --accent:#FF5A1F; --on-accent:#101418; --accent-text:#B53D0E; --focus:#101418;
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif; --body:'DM Sans','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101418; --surface:#181D23; --fg:#F7F6F2; --muted:#B6BCC3; --line:#2D353E;
+    --accent:#FF6A33; --on-accent:#101418; --accent-text:#FF8A5C; --focus:#F7F6F2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101418; --surface:#181D23; --fg:#F7F6F2; --muted:#B6BCC3; --line:#2D353E;
+  --accent:#FF6A33; --on-accent:#101418; --accent-text:#FF8A5C; --focus:#F7F6F2; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:24px 56px}
+.wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header svg{flex:none}
+.brand{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-0.5px}
+.sub{color:var(--muted);font-size:15px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,7vw,44px);line-height:1.05;letter-spacing:-1px;margin:0;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:60ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.tags li{border:1.5px solid var(--fg);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:500}
+form{display:flex;flex-direction:column;gap:20px}
+fieldset{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;margin:0;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+legend{font-family:var(--display);font-weight:800;font-size:18px;padding:0 8px;margin-left:-8px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+label.t,.q{font-weight:700;font-size:15px}
+.req{color:var(--accent-text)}
+.hint{font-size:13px;color:var(--muted);font-weight:400}
+input[type=text],input[type=tel],input[type=email],input[type=number],select,textarea{
+  font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px;width:100%}
+textarea{min-height:110px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);cursor:pointer;font-size:15px}
+.choices input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.choices label:has(input:checked){background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.choices label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:2px}
+.btn{font:inherit;font-weight:700;font-size:17px;min-height:50px;padding:12px 28px;border-radius:999px;border:0;background:var(--accent);color:var(--on-accent);cursor:pointer}
+.btn.alt{background:transparent;color:var(--fg);border:2px solid var(--fg)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.err{color:var(--accent-text);font-weight:700;font-size:14px;margin:0}
+.result{border:2px solid var(--fg);border-radius:14px;background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:14px}
+.result h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0}
+.result textarea{min-height:260px;font-size:14px;line-height:1.5}
+.contact{display:flex;flex-direction:column;gap:2px;font-size:15px}
+.contact b{font-weight:700}
+.status{font-size:14px;color:var(--muted);min-height:1.4em;margin:0}
+a.btn{display:inline-flex;align-items:center;text-decoration:none}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .12s}.btn:active{transform:scale(.98)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg width="52" height="52" viewBox="0 0 84 84" fill="none" aria-label="Montiq Studio logo">
+      <rect width="84" height="84" rx="18" fill="#101418"/>
+      <path d="M21 62V24L42 46L63 24V62" stroke="#F7F6F2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="42" cy="60" r="4.5" fill="#FF5A1F"/>
+    </svg>
+    <div>
+      <div class="brand">Montiq Studio</div>
+      <div class="sub">Video editing agency</div>
+    </div>
+  </header>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <h1>Telecaller application</h1>
+    <p class="lead">Fill in your details, then send the finished application to us on WhatsApp or email. We will call shortlisted candidates for an interview.</p>
+    <ul class="tags"><li>Remote, work from home</li><li>Freshers can apply</li><li>Hindi and English</li></ul>
+  </div>
+
+  <form id="appForm" autocomplete="on">
+    <fieldset>
+      <legend>About you</legend>
+      <div class="row">
+        <div class="field"><label class="t" for="name">Full name <span class="req">*</span></label><input id="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label class="t" for="age">Age <span class="req">*</span></label><input id="age" type="number" min="18" max="60" required inputmode="numeric"><span class="hint">You must be 18 or older.</span></div>
+      </div>
+      <div class="row">
+        <div class="field"><label class="t" for="phone">Phone / WhatsApp number <span class="req">*</span></label><input id="phone" type="tel" required inputmode="tel" autocomplete="tel" pattern="[0-9 +\-]{10,15}"><span class="hint">10 digits, with country code if outside India.</span></div>
+        <div class="field"><label class="t" for="email">Email <span class="req">*</span></label><input id="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label class="t" for="city">City and state <span class="req">*</span></label><input id="city" type="text" required autocomplete="address-level2"></div>
+        <div class="field"><label class="t" for="edu">Highest education <span class="req">*</span></label>
+          <select id="edu" required><option value="">Select</option><option>10th pass</option><option>12th pass</option><option>Diploma</option><option>Graduate</option><option>Post graduate</option></select></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Calling skills</legend>
+      <div class="field" role="group" aria-labelledby="langQ">
+        <span class="q" id="langQ">Languages you can speak well <span class="req">*</span></span>
+        <div class="choices" id="langs">
+          <label><input type="checkbox" name="lang" value="Hindi">Hindi</label>
+          <label><input type="checkbox" name="lang" value="English">English</label>
+          <label><input type="checkbox" name="lang" value="Urdu">Urdu</label>
+          <label><input type="checkbox" name="lang" value="Other">Other</label>
+        </div>
+      </div>
+      <div class="field" role="radiogroup" aria-labelledby="expQ">
+        <span class="q" id="expQ">Telecalling or sales experience <span class="req">*</span></span>
+        <div class="choices">
+          <label><input type="radio" name="exp" value="None, fresher" required>None, fresher</label>
+          <label><input type="radio" name="exp" value="Under 1 year">Under 1 year</label>
+          <label><input type="radio" name="exp" value="1 to 3 years">1 to 3 years</label>
+          <label><input type="radio" name="exp" value="More than 3 years">More than 3 years</label>
+        </div>
+      </div>
+      <div class="field"><label class="t" for="prev">Previous work, if any <span class="hint">(company and what you did)</span></label><input id="prev" type="text"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Video editing knowledge</legend>
+      <div class="field" role="radiogroup" aria-labelledby="vidQ">
+        <span class="q" id="vidQ">How well do you know video editing? <span class="req">*</span></span>
+        <div class="choices">
+          <label><input type="radio" name="vid" value="Only watch videos" required>Only watch videos</label>
+          <label><input type="radio" name="vid" value="Basic">Basic</label>
+          <label><input type="radio" name="vid" value="Intermediate">Intermediate</label>
+        </div>
+      </div>
+      <div class="field"><label class="t" for="tools">Apps you have used <span class="hint">(CapCut, Premiere Pro, VN, InShot, none)</span></label><input id="tools" type="text"></div>
+      <div class="field"><label class="t" for="terms">Explain one video editing word in your own words <span class="hint">(for example: reel, hook, caption, B-roll)</span></label><textarea id="terms"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Availability</legend>
+      <div class="field" role="radiogroup" aria-labelledby="devQ">
+        <span class="q" id="devQ">Do you have your own phone and internet? <span class="req">*</span></span>
+        <div class="choices">
+          <label><input type="radio" name="dev" value="Yes" required>Yes</label>
+          <label><input type="radio" name="dev" value="No">No</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><label class="t" for="hours">Hours you can work each day <span class="req">*</span></label>
+          <select id="hours" required><option value="">Select</option><option>2 to 3 hours</option><option>4 to 5 hours</option><option>6 to 8 hours</option></select></div>
+        <div class="field"><label class="t" for="start">Earliest start date <span class="req">*</span></label><input id="start" type="text" required placeholder="For example: immediately"></div>
+      </div>
+      <div class="field"><label class="t" for="pay">Expected monthly pay in rupees <span class="hint">(optional)</span></label><input id="pay" type="text" inputmode="numeric"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>In your words</legend>
+      <div class="field"><label class="t" for="why">Why do you want this job, and what makes you good at talking to new people? <span class="req">*</span></label><textarea id="why" required></textarea></div>
+    </fieldset>
+
+    <p class="err" id="err" role="alert" hidden></p>
+    <div class="actions"><button class="btn" type="submit">Prepare my application</button></div>
+  </form>
+
+  <section class="result" id="result" hidden aria-live="polite">
+    <h2>Your application is ready</h2>
+    <p style="margin:0">Send this to us now. Tap WhatsApp, or copy the text and email it.</p>
+    <label class="t" for="out">Application text</label>
+    <textarea id="out" readonly></textarea>
+    <div class="actions">
+      <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Send on WhatsApp</a>
+      <button class="btn alt" type="button" id="copy">Copy application</button>
+    </div>
+    <p class="status" id="status"></p>
+    <div class="contact">
+      <span><b>WhatsApp:</b> 8052505975</span>
+      <span><b>Email:</b> sarhanansari313@gmail.com</span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var OWNER_WA = '918052505975';
+  var form = document.getElementById('appForm');
+  var err = document.getElementById('err');
+  var result = document.getElementById('result');
+  var out = document.getElementById('out');
+  var wa = document.getElementById('wa');
+  var statusEl = document.getElementById('status');
+
+  function val(id){ return (document.getElementById(id).value || '').trim(); }
+  function radio(name){ var r = form.querySelector('input[name="'+name+'"]:checked'); return r ? r.value : ''; }
+  function langs(){
+    return Array.prototype.map.call(form.querySelectorAll('input[name="lang"]:checked'), function(i){ return i.value; });
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var l = langs();
+    if (!l.length){
+      err.textContent = 'Choose at least one language you speak well.';
+      err.hidden = false;
+      document.getElementById('langs').scrollIntoView({block:'center'});
+      return;
+    }
+    err.hidden = true;
+    var lines = [
+      'TELECALLER APPLICATION - Montiq Studio',
+      '',
+      'Name: ' + val('name'),
+      'Age: ' + val('age'),
+      'Phone / WhatsApp: ' + val('phone'),
+      'Email: ' + val('email'),
+      'City and state: ' + val('city'),
+      'Education: ' + val('edu'),
+      '',
+      'Languages: ' + l.join(', '),
+      'Telecalling or sales experience: ' + radio('exp'),
+      'Previous work: ' + (val('prev') || 'Not given'),
+      '',
+      'Video editing knowledge: ' + radio('vid'),
+      'Apps used: ' + (val('tools') || 'Not given'),
+      'Editing word explained: ' + (val('terms') || 'Not given'),
+      '',
+      'Own phone and internet: ' + radio('dev'),
+      'Hours per day: ' + val('hours'),
+      'Earliest start: ' + val('start'),
+      'Expected monthly pay: ' + (val('pay') || 'Not given'),
+      '',
+      'Why this job: ' + val('why')
+    ];
+    var text = lines.join('\n');
+    out.value = text;
+    wa.href = 'https://wa.me/' + OWNER_WA + '?text=' + encodeURIComponent(text);
+    statusEl.textContent = '';
+    result.hidden = false;
+    result.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    function fallback(){
+      out.focus(); out.select();
+      statusEl.textContent = 'Text selected. Press and hold, then choose Copy.';
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(out.value).then(function(){
+          statusEl.textContent = 'Copied. Paste it into WhatsApp or email.';
+        }, fallback);
+      } else { fallback(); }
+    } catch (x) { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
